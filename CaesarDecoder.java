@@ -7,24 +7,24 @@ import java.io.FileNotFoundException;
 public class CaesarDecoder{
     private static final String LETTERS= "abcdefghijklmnopqrstuvwxyz";
     private static ArrayList<String> words;
-    private static final String position = "words_dictionary.json";
+    private static final String POSITION = "words_dictionary.json";
     
     
     public static void setupDecoder() throws FileNotFoundException{
-        Scanner file = new Scanner(new File(position));
+        Scanner file = new Scanner(new File(POSITION));
         StringBuilder jsonBuilder = new StringBuilder();    
-        String json;
         while(file.hasNext()){
             jsonBuilder.append(file.nextLine());
             jsonBuilder.append("\n");
         }
-        json=jsonBuilder.toString();
+        String json=jsonBuilder.toString();
         json.replace("{","");
         json.replace("}","");
         json.replace("\"","");
+        words = new ArrayList<>(Arrays.asList(json.split(": 1, ")));
     }
     
-    private static String decode(String toDecode){
+    public static String decode(String toDecode){
         ArrayList<String> decodeList = new ArrayList<>();
         for(int i = 0;i<26;i++){
             decodeList.add(decode(toDecode,i));
@@ -45,11 +45,11 @@ public class CaesarDecoder{
         return "Fail";
     }
     
-    private static String decode(String toDecode, int encodeValue){
+    public static String decode(String toDecode, int encodeValue){
         return encode(toDecode, 26-encodeValue);
     }
     
-    private static String encode(String plainText,int shiftKey){
+    public static String encode(String plainText,int shiftKey){
             plainText = plainText.toLowerCase();
             StringBuilder cipherText= new StringBuilder();
             for(char c : plainText.toCharArray()){
