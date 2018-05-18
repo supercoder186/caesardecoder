@@ -25,22 +25,17 @@ public class CaesarDecoder{
     }
     
     public static String decode(String toDecode){
-        ArrayList<String> decodeList = new ArrayList<>();
-        for(int i = 0;i<26;i++){
-            decodeList.add(decode(toDecode,i));
-        }
-        for(String toCheck : decodeList){
-            String[] sentWords = toCheck.split(" ");
-            double minWords = sentWords.length/1.75;
+        for(int i = 0; i<26; i++){
+            String text = decode(toDecode,i);
+            String[] sentWords = text.split(" ");
+            double minWords = sentWords.length / 1.75;
             int engWords = 0;
-            for(String thingy : sentWords){
-                thingy.replace(" ","");
-                thingy.replace(".","");
-                if(words.contains("\""+thingy+"\"")){
+            for(String word : sentWords){
+                if(words.contains("\""+word+"\""){
                     engWords ++;
                 }
             }
-            if(engWords >= minWords)return toCheck;        
+            if(engWords>=minWords)return text;
         }
         return "Fail";
     }
