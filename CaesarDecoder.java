@@ -63,16 +63,25 @@ public class CaesarDecoder{
     }
     
     public static String decode(String toDecode){
+        //Checks every possible shift value 0-26 - after that it will be useless to change, since shift 27 is the same as shift 1
         for(int i = 0; i<26; i++){
+            //Checks the corresponding decode value
             String text = decode(toDecode,i);
+            //Splits the string into a sequence of words
             String[] sentWords = text.split(" ");
+            //This is the minimum number of english words that the string needs to qualify as valid 
+            //It equates to 4 in every 7 words
             double minWords = sentWords.length / 1.75;
+            //This is an int to count the number of english words
             int engWords = 0;
+            //This is a loop to check every word in the sentence
             for(String word : sentWords){
-                if(words.contains("\""+word+"\""){
+                //This checks if the word is english
+                if(words.contains("\""+word+"\"")){
                     engWords ++;
                 }
             }
+            //If the number of english words is more than or equal to the minimum amount, it will return that decode value
             if(engWords>=minWords)return text;
         }
         return "Fail";
